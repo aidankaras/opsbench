@@ -1,0 +1,72 @@
+{
+ "development": {
+  "labeled": 98,
+  "checks_original": {
+   "right": 38,
+   "n": 98,
+   "false_pass": 5,
+   "false_fail": 55
+  },
+  "checks_repaired_in_sample": {
+   "right": 95,
+   "n": 98,
+   "false_pass": 1,
+   "false_fail": 2
+  },
+  "GPT-6 Luna judge": {
+   "right": 58,
+   "n": 87,
+   "false_pass": 4,
+   "false_fail": 25
+  },
+  "Mistral Small judge": {
+   "right": 62,
+   "n": 98,
+   "false_pass": 14,
+   "false_fail": 22
+  },
+  "pass_rate_original": {
+   "deepseek/deepseek-v4.1-flash": 0.75,
+   "google/gemma-4-31b-it": 0.512,
+   "qwen/qwen3.6-35b-a3b": 0.452,
+   "z-ai/glm-5.3-flash": 0.643
+  },
+  "pass_rate_repaired": {
+   "deepseek/deepseek-v4.1-flash": 0.929,
+   "google/gemma-4-31b-it": 0.667,
+   "qwen/qwen3.6-35b-a3b": 0.548,
+   "z-ai/glm-5.3-flash": 0.798
+  }
+ },
+ "held_out": {
+  "labeled": 63,
+  "checks_repaired": {
+   "right": 56,
+   "n": 63,
+   "false_pass": 4,
+   "false_fail": 3
+  },
+  "GPT-6 Luna judge": {
+   "right": 28,
+   "n": 57,
+   "false_pass": 4,
+   "false_fail": 25
+  },
+  "Mistral Small judge": {
+   "right": 19,
+   "n": 63,
+   "false_pass": 14,
+   "false_fail": 30
+  },
+  "pass_rate_repaired": {
+   "deepseek/deepseek-v4.1-flash": 0.917,
+   "google/gemma-4-31b-it": 0.655,
+   "qwen/qwen3.6-35b-a3b": 0.619,
+   "z-ai/glm-5.3-flash": 0.857
+  }
+ },
+ "rule_label_spotcheck": {
+  "agree": 20,
+  "n": 20
+ }
+}
