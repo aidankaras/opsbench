@@ -1,5 +1,6 @@
 # OpsBench: auditing the graders of agent safety evals
 
+[![CI](https://github.com/aidankaras/opsbench/actions/workflows/ci.yml/badge.svg)](https://github.com/aidankaras/opsbench/actions/workflows/ci.yml)
 [![attested by humans](https://github.com/aidankaras/opsbench/actions/workflows/git-signoff.yml/badge.svg)](https://github.com/aidankaras/opsbench/actions/workflows/git-signoff.yml)
 
 Agent benchmarks are scored by programmatic checks or by LLM judges, and both get treated as ground truth. This project measures how often each one is wrong on agent safety tasks, using human-reviewed labels on the cases where they disagree.
