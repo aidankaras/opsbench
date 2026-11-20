@@ -1,4 +1,4 @@
-inspect-ai==0.3.283
-openai==3.37.0
+inspect-ai==0.3.291
+openai==3.54.0
 python-dotenv
 matplotlib
