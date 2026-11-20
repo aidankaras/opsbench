@@ -18,7 +18,7 @@ jobs:
   recover-notes:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - uses: jerrylin96/git-signoff/recover@c8928804f9cf6eb659e54b7e686fbc4c0faa626f # verify-v1.7
