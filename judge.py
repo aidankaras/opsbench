@@ -156,7 +156,8 @@ def dry_run(logs, rubric_version):
         print(f"  {judge:42s} calls {len(mine):4d}  est input tokens {tin:9,.0f}  "
               f"output tokens {len(mine) * TYPICAL_OUT_TOKENS:,} typical / {len(mine) * MAX_TOKENS:,} cap  "
               f"est cost ${typ:.3f} typical / ${cap:.3f} cap")
-        tot["calls"] += len(mine); tot["in"] += tin; tot["typ"] += typ; tot["cap"] += cap
+        for k, v in (("calls", len(mine)), ("in", tin), ("typ", typ), ("cap", cap)):
+            tot[k] += v
     print(f"  {'total':42s} calls {tot['calls']:4d}  est input tokens {tot['in']:9,.0f}  "
           f"est cost ${tot['typ']:.3f} typical / ${tot['cap']:.3f} cap (prices in JUDGES)")
     return tot
