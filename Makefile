@@ -10,6 +10,6 @@ rescore:           ## re-run the programmatic checks on the saved agent logs ($0
 	$(PY) rescore.py results/rescored-heldout.jsonl logs/heldout/*.eval
 
 test:              ## check self-tests: good runs pass, bad runs fail, do-nothing and talk-only agents fail
-	$(PY) -m pytest -q test_checks.py
+	$(PY) -m pytest -q
 
 all: test rescore report

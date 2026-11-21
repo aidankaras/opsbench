@@ -3,7 +3,8 @@
 Check versions: v1 scored the development round and was never committed; v2 (repaired with the
 development labels) scored the held-out round and is frozen in checks_v2.py; the checks below are
 v3, which close holes found after the held-out round (see REPORT.md). Each task's `rubric` is the
-v1 rubric the judges were given."""
+v1 rubric the judges were given; the v2 rubrics, aligned with the labeling standard, are in
+rubrics_v2.py."""
 import re
 
 
