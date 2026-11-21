@@ -12,6 +12,7 @@ max_tokens are the same for both, so a v1/v2 comparison isolates the rubric.
 
 Usage:
   python judge.py [--rubrics v1|v2] [--dry-run] OUT.jsonl LOG.eval [LOG.eval ...]
+  (LOG.eval may be a quoted glob such as "logs/heldout/*.eval")
   --dry-run   build every prompt, print the number of calls, estimated tokens and cost; no API key
               needed, nothing is written
 Env: OPENROUTER_API_KEY (read from .env, see .env.example). Spend guard: no new calls once the
@@ -21,6 +22,7 @@ from __future__ import annotations
 
 import argparse
 import asyncio
+import glob
 import json
 import os
 import re
@@ -191,6 +193,8 @@ if __name__ == "__main__":
     ap.add_argument("out")
     ap.add_argument("logs", nargs="+")
     a = ap.parse_args()
+    # expand globs here too, so quoted patterns work in shells that do not expand them (PowerShell, cmd)
+    a.logs = [p for pat in a.logs for p in (sorted(glob.glob(pat)) or [pat])]
     if a.dry_run:
         dry_run(a.logs, a.rubrics)
     else:
