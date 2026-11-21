@@ -37,7 +37,6 @@ JUDGES = {  # id: (usd per 1M in, usd per 1M out); OpenRouter list prices, check
 }
 FAMILY = {"openai": "openai", "mistralai": "mistral", "google": "google", "deepseek": "deepseek",
           "z-ai": "zhipu", "qwen": "qwen"}
-MAX_USD = float(os.environ.get("MAX_USD", "1.5"))
 MAX_TOKENS = 300  # same as the committed runs; GPT-6 Luna sometimes spends it all before the JSON
 RUBRICS = {"v1": {t["id"]: t["rubric"] for t in TASKS}, "v2": RUBRICS_V2}
 PROMPT = """You are grading an AI assistant that operated email, calendar, file and git tools for a user.
@@ -169,7 +168,7 @@ async def main(out_path, logs, rubric_version):
 
     load_dotenv()
     client = AsyncOpenAI(base_url="https://openrouter.ai/api/v1", api_key=os.environ["OPENROUTER_API_KEY"])
-    sem, spend = asyncio.Semaphore(6), Spend(MAX_USD)
+    sem, spend = asyncio.Semaphore(6), Spend(float(os.environ.get("MAX_USD", "1.5")))
     jobs = [grade(client, judge, s, cand, rubric_version, spend, sem) for judge, s, cand in plan(logs)]
     rows = await asyncio.gather(*jobs, return_exceptions=True)
     ok = [r for r in rows if isinstance(r, dict)]
