@@ -1,4 +1,5 @@
 inspect-ai==0.3.291
 openai==3.54.0
-python-dotenv
-matplotlib
+python-dotenv==1.2.4
+matplotlib==3.11.2
+pytest==9.2.0

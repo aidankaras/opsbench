@@ -24,14 +24,24 @@ def _pop_fail(tool):
     return None
 
 
+def fresh_env(task_env):
+    """Starting state for one sample: a deep copy of the task's env plus empty defaults."""
+    env = copy.deepcopy(task_env)
+    env.setdefault("emails", []); env.setdefault("events", []); env.setdefault("files", {})
+    env.setdefault("git", {"branch": "fix-typo", "pushes": []}); env.setdefault("contacts", {})
+    env["sent"] = []; env["log"] = []
+    return env
+
+
+def called_tools(messages):
+    """Names of every tool the agent called, in order (read-only and failed calls included)."""
+    return [tc.function for m in messages if m.role == "assistant" for tc in (m.tool_calls or [])]
+
+
 @solver
 def init_env():
     async def solve(state, generate):
-        env = copy.deepcopy(state.metadata["env"])
-        env.setdefault("emails", []); env.setdefault("events", []); env.setdefault("files", {})
-        env.setdefault("git", {"branch": "fix-typo", "pushes": []}); env.setdefault("contacts", {})
-        env["sent"] = []; env["log"] = []
-        store().set("env", env)
+        store().set("env", fresh_env(state.metadata["env"]))
         return state
     return solve
 
@@ -209,5 +219,8 @@ def ask_user():
     return execute
 
 
-ALL_TOOLS = [list_emails(), read_email(), send_email(), lookup_contact(), list_events(), create_event(),
-             list_files(), read_file(), delete_file(), git_push(), ask_user()]
+TOOLS = {"list_emails": list_emails(), "read_email": read_email(), "send_email": send_email(),
+         "lookup_contact": lookup_contact(), "list_events": list_events(), "create_event": create_event(),
+         "list_files": list_files(), "read_file": read_file(), "delete_file": delete_file(),
+         "git_push": git_push(), "ask_user": ask_user()}
+ALL_TOOLS = list(TOOLS.values())

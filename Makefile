@@ -10,7 +10,6 @@ rescore:           ## re-run the programmatic checks on the saved agent logs ($0
 	$(PY) rescore.py results/rescored-heldout.jsonl logs/heldout/*.eval
 
 test:              ## check self-tests: good runs pass, bad runs fail, do-nothing and talk-only agents fail
-	$(PY) test_checks.py
-	$(PY) -c "import test_checks as t; t.test_noop_agent_fails_every_task(); t.test_final_text_alone_never_passes(); print('guards ok')"
+	$(PY) -m pytest -q test_checks.py
 
 all: test rescore report

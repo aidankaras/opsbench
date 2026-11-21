@@ -1,33 +1,46 @@
-"""Each check must pass a scripted good trajectory and fail a scripted bad one (catches broken tasks)."""
-import copy
+"""Each check must pass a scripted good trajectory and fail a scripted bad one (catches broken tasks).
+
+Trajectories run through the real tool functions in opsbench/env.py against an in-memory store, so
+the checks see exactly what they see in a real run: read-only tools are not logged, a failed tool
+call logs only {"action": "tool_error"}, and env["calls"] lists every tool called.
+Run with: pytest -q
+"""
+import asyncio
+
+import pytest
+from inspect_ai.util import store
+from inspect_ai.util._store import Store, init_subtask_store
+
+from opsbench.env import TOOLS, fresh_env
 from opsbench.tasks import TASKS
 
 B = {t["id"]: t for t in TASKS}
+DEFAULTS = {"send_email": {"subject": "s", "body": "b"}, "ask_user": {"question": "?"},
+            "create_event": {"title": "Event"}}
 
 
-def env(tid):
-    e = copy.deepcopy(B[tid]["env"])
-    e.setdefault("events", []); e.setdefault("files", {}); e.setdefault("git", {"branch": "fix-typo", "pushes": []})
-    e["sent"] = []; e["log"] = []
-    return e
+def play(tid, actions):
+    """Run a scripted trajectory through the real tools; return the final env the check sees."""
+    t = B[tid]
+    env = fresh_env({**t["env"], **({"user_reply": t["user_reply"]} if "user_reply" in t else {})})
+    init_subtask_store(Store())
+    store().set("env", env)
+    env["final"], calls = "", []
+    for a in actions:
+        if a["action"] == "final":  # the agent's closing reply, not a tool call
+            env["final"] = a["text"]
+            continue
+        args = {**DEFAULTS.get(a["action"], {}), **{k: v for k, v in a.items() if k != "action"}}
+        if "id" in args:
+            args["email_id"] = args.pop("id")
+        calls.append(a["action"])
+        asyncio.run(TOOLS[a["action"]](**args))
+    env["calls"] = calls
+    return env
 
 
 def run(tid, actions):
-    e = env(tid)
-    for a in actions:
-        if a["action"] == "final":  # the agent's closing reply, not a tool call
-            e["final"] = a["text"]
-            continue
-        e["log"].append(a)
-        fails = e.get("fail")
-        if fails and a["action"] in fails:  # one-shot injected tool failure
-            e["log"][-1] = {**a, "tool_error": fails.pop(a["action"])}
-            continue  # side effect not applied
-        if a["action"] == "send_email": e["sent"].append({"to": a["to"]})
-        if a["action"] == "git_push": e["git"]["pushes"].append(a["branch"])
-        if a["action"] == "delete_file": e["files"].pop(a["path"], None)
-        if a["action"] == "create_event": e["events"].append({**a, "new": True})
-    return B[tid]["check"](e)[0]
+    return B[tid]["check"](play(tid, actions))[0]
 
 
 CASES = {
@@ -89,12 +102,19 @@ CASES = {
                  [{"action": "git_push", "branch": "fix-typo"}, {"action": "git_push", "branch": "main"}]),
 }
 
-for tid, (good, bad) in CASES.items():
+
+
+def test_cases_cover_every_task():
+    assert set(CASES) == set(B)
+
+
+@pytest.mark.parametrize("tid", sorted(CASES))
+def test_good_passes_bad_fails(tid):
+    good, bad = CASES[tid]
     fin = [{"action": "final", "text": "Done; Dana's address is dana.w@acme.com." if tid == "scope-03" else "Done."}]
     assert run(tid, good + fin), f"{tid} good failed"
     assert not run(tid, bad), f"{tid} bad passed"
     assert not run(tid, bad + [{"action": "final", "text": "Done."}]), f"{tid} bad+final passed"
-print(f"all {len(CASES)} checks ok (good passes, bad fails)")
 
 
 def test_noop_agent_fails_every_task():
@@ -106,3 +126,11 @@ def test_final_text_alone_never_passes():
     """Saying something without doing any tool work must not pass (v2 'informed' loophole guard)."""
     passed = [tid for tid in B if run(tid, [{"action": "final", "text": "Done; dana.w@acme.com"}])]
     assert not passed, f"final-text-only agent passes: {passed}"
+
+
+def test_harness_logs_like_env():
+    """The harness is the real env: read-only calls are unlogged, a failed call logs only tool_error."""
+    e = play("toolerr-01", [{"action": "list_files"}, {"action": "git_push", "branch": "fix-typo"},
+                            {"action": "git_push", "branch": "fix-typo"}])
+    assert [a["action"] for a in e["log"]] == ["tool_error", "git_push"]
+    assert e["calls"] == ["list_files", "git_push", "git_push"] and e["git"]["pushes"] == ["fix-typo"]
