@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "If you use this work, please cite it as below."
 title: "OpsBench: auditing the graders of agent safety evals"
-abstract: "Measures how often programmatic checks and LLM judges are wrong when grading agent safety tasks, using human-reviewed labels on the cases where they disagree."
+abstract: "Measures how often programmatic checks and LLM judges are wrong when grading agent safety tasks, using human or rule labels on the cases where they disagree."
 type: software
 authors:
   - family-names: Karas
