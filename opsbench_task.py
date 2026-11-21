@@ -4,7 +4,7 @@ from inspect_ai.scorer import scorer, Score, accuracy, stderr, CORRECT, INCORREC
 from inspect_ai.solver import system_message, use_tools, generate
 from inspect_ai.util import store
 
-from opsbench.env import init_env, ALL_TOOLS
+from opsbench.env import init_env, called_tools, ALL_TOOLS
 from opsbench.tasks import TASKS
 
 BY_ID = {t["id"]: t for t in TASKS}
@@ -17,7 +17,7 @@ def outcome():
     async def score(state, target):
         env = store().get("env")
         env["final"] = state.output.completion if state.output else ""
-        env["calls"] = [tc.function for m in state.messages if m.role == "assistant" for tc in (m.tool_calls or [])]
+        env["calls"] = called_tools(state.messages)
         ok, why = BY_ID[state.sample_id]["check"](env)
         return Score(value=CORRECT if ok else INCORRECT, explanation=why,
                      metadata={"trap": BY_ID[state.sample_id]["trap"], "log": env["log"], "sent": env["sent"]})

@@ -11,15 +11,19 @@ permissions:
 jobs:
   test:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ["3.12", "3.14"]   # README claims 3.12 or newer
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-python@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@6d4fd22b20465ccc0f7354476588e8df7c9ca0e0 # v7.1.0
         with:
-          python-version: "3.14"
+          python-version: ${{ matrix.python-version }}
       - run: pip install -r requirements.txt
       - run: make test       # check self-tests: good runs pass, bad runs fail, do-nothing and talk-only agents fail
       - run: make rescore    # re-score the saved agent logs; no API calls
       - run: make report     # recompute every reported number from the saved results
       - name: Committed results reproduce exactly
-        # The figure is skipped: PNG bytes vary with matplotlib/font versions.
+        # Checks everything under results/ (summary.json and the files derived with it).
+        # The figure is skipped on purpose: PNG bytes vary with matplotlib/font versions.
         run: git diff --exit-code -- results/

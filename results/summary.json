@@ -1,72 +1,808 @@
 {
  "development": {
   "labeled": 98,
+  "labels_by_source": {
+   "hand": 23,
+   "rule": 75
+  },
   "checks_original": {
    "right": 38,
    "n": 98,
    "false_pass": 5,
-   "false_fail": 55
+   "false_fail": 55,
+   "accuracy": 0.388,
+   "wilson95": [
+    0.297,
+    0.487
+   ],
+   "task_boot95": [
+    0.187,
+    0.623
+   ],
+   "hand_labels": {
+    "right": 11,
+    "n": 23,
+    "false_pass": 2,
+    "false_fail": 10,
+    "accuracy": 0.478,
+    "wilson95": [
+     0.292,
+     0.67
+    ],
+    "task_boot95": [
+     0.211,
+     0.714
+    ]
+   },
+   "rule_labels": {
+    "right": 27,
+    "n": 75,
+    "false_pass": 3,
+    "false_fail": 45,
+    "accuracy": 0.36,
+    "wilson95": [
+     0.261,
+     0.473
+    ],
+    "task_boot95": [
+     0.148,
+     0.608
+    ]
+   }
   },
-  "checks_repaired_in_sample": {
+  "checks_v2_in_sample": {
    "right": 95,
    "n": 98,
    "false_pass": 1,
-   "false_fail": 2
+   "false_fail": 2,
+   "accuracy": 0.969,
+   "wilson95": [
+    0.914,
+    0.99
+   ],
+   "task_boot95": [
+    0.927,
+    1.0
+   ],
+   "hand_labels": {
+    "right": 21,
+    "n": 23,
+    "false_pass": 1,
+    "false_fail": 1,
+    "accuracy": 0.913,
+    "wilson95": [
+     0.732,
+     0.976
+    ],
+    "task_boot95": [
+     0.84,
+     1.0
+    ]
+   },
+   "rule_labels": {
+    "right": 74,
+    "n": 75,
+    "false_pass": 0,
+    "false_fail": 1,
+    "accuracy": 0.987,
+    "wilson95": [
+     0.928,
+     0.998
+    ],
+    "task_boot95": [
+     0.952,
+     1.0
+    ]
+   }
+  },
+  "checks_v3_in_sample": {
+   "right": 97,
+   "n": 98,
+   "false_pass": 1,
+   "false_fail": 0,
+   "accuracy": 0.99,
+   "wilson95": [
+    0.944,
+    0.998
+   ],
+   "task_boot95": [
+    0.963,
+    1.0
+   ],
+   "hand_labels": {
+    "right": 22,
+    "n": 23,
+    "false_pass": 1,
+    "false_fail": 0,
+    "accuracy": 0.957,
+    "wilson95": [
+     0.79,
+     0.992
+    ],
+    "task_boot95": [
+     0.893,
+     1.0
+    ]
+   },
+   "rule_labels": {
+    "right": 75,
+    "n": 75,
+    "false_pass": 0,
+    "false_fail": 0,
+    "accuracy": 1.0,
+    "wilson95": [
+     0.951,
+     1.0
+    ],
+    "task_boot95": [
+     1.0,
+     1.0
+    ]
+   }
   },
   "GPT-6 Luna judge": {
    "right": 58,
    "n": 87,
    "false_pass": 4,
-   "false_fail": 25
+   "false_fail": 25,
+   "accuracy": 0.667,
+   "wilson95": [
+    0.562,
+    0.757
+   ],
+   "task_boot95": [
+    0.412,
+    0.857
+   ],
+   "hand_labels": {
+    "right": 12,
+    "n": 22,
+    "false_pass": 3,
+    "false_fail": 7,
+    "accuracy": 0.545,
+    "wilson95": [
+     0.347,
+     0.731
+    ],
+    "task_boot95": [
+     0.3,
+     0.769
+    ]
+   },
+   "rule_labels": {
+    "right": 46,
+    "n": 65,
+    "false_pass": 1,
+    "false_fail": 18,
+    "accuracy": 0.708,
+    "wilson95": [
+     0.588,
+     0.804
+    ],
+    "task_boot95": [
+     0.4,
+     0.901
+    ]
+   },
+   "verdicts": {
+    "total": 336,
+    "unparsed": 17,
+    "recovered_from_cut_off_reply": 4,
+    "recovered_fail": 3,
+    "recovered_pass": 1,
+    "unparsed_among_labeled": 11
+   },
+   "with_recovered_verdicts": {
+    "right": 59,
+    "n": 90,
+    "false_pass": 4,
+    "false_fail": 27,
+    "accuracy": 0.656,
+    "wilson95": [
+     0.553,
+     0.746
+    ],
+    "task_boot95": [
+     0.395,
+     0.848
+    ]
+   },
+   "sensitivity_unrecoverable_counted_wrong": {
+    "right": 59,
+    "n": 98,
+    "false_pass": 4,
+    "false_fail": 35,
+    "accuracy": 0.602,
+    "wilson95": [
+     0.503,
+     0.693
+    ],
+    "task_boot95": [
+     0.345,
+     0.813
+    ]
+   }
   },
   "Mistral Small judge": {
    "right": 62,
    "n": 98,
    "false_pass": 14,
-   "false_fail": 22
+   "false_fail": 22,
+   "accuracy": 0.633,
+   "wilson95": [
+    0.534,
+    0.721
+   ],
+   "task_boot95": [
+    0.389,
+    0.838
+   ],
+   "hand_labels": {
+    "right": 12,
+    "n": 23,
+    "false_pass": 6,
+    "false_fail": 5,
+    "accuracy": 0.522,
+    "wilson95": [
+     0.33,
+     0.708
+    ],
+    "task_boot95": [
+     0.25,
+     0.85
+    ]
+   },
+   "rule_labels": {
+    "right": 50,
+    "n": 75,
+    "false_pass": 8,
+    "false_fail": 17,
+    "accuracy": 0.667,
+    "wilson95": [
+     0.554,
+     0.763
+    ],
+    "task_boot95": [
+     0.407,
+     0.887
+    ]
+   },
+   "verdicts": {
+    "total": 336,
+    "unparsed": 1,
+    "recovered_from_cut_off_reply": 0,
+    "recovered_fail": 0,
+    "recovered_pass": 0,
+    "unparsed_among_labeled": 0
+   },
+   "with_recovered_verdicts": {
+    "right": 62,
+    "n": 98,
+    "false_pass": 14,
+    "false_fail": 22,
+    "accuracy": 0.633,
+    "wilson95": [
+     0.534,
+     0.721
+    ],
+    "task_boot95": [
+     0.389,
+     0.838
+    ]
+   },
+   "sensitivity_unrecoverable_counted_wrong": {
+    "right": 62,
+    "n": 98,
+    "false_pass": 14,
+    "false_fail": 22,
+    "accuracy": 0.633,
+    "wilson95": [
+     0.534,
+     0.721
+    ],
+    "task_boot95": [
+     0.389,
+     0.838
+    ]
+   }
+  },
+  "unsure_excluded": {
+   "n": 7,
+   "checks_original_pass": 3,
+   "GPT-6 Luna judge_pass": 5,
+   "Mistral Small judge_pass": 4
   },
   "pass_rate_original": {
-   "deepseek/deepseek-v4.1-flash": 0.75,
-   "google/gemma-4-31b-it": 0.512,
-   "qwen/qwen3.6-35b-a3b": 0.452,
-   "z-ai/glm-5.3-flash": 0.643
+   "deepseek/deepseek-v4.1-flash": {
+    "rate": 0.75,
+    "task_boot95": [
+     0.607,
+     0.881
+    ]
+   },
+   "google/gemma-4-31b-it": {
+    "rate": 0.512,
+    "task_boot95": [
+     0.345,
+     0.69
+    ]
+   },
+   "qwen/qwen3.6-35b-a3b": {
+    "rate": 0.452,
+    "task_boot95": [
+     0.298,
+     0.619
+    ]
+   },
+   "z-ai/glm-5.3-flash": {
+    "rate": 0.643,
+    "task_boot95": [
+     0.5,
+     0.786
+    ]
+   }
   },
-  "pass_rate_repaired": {
-   "deepseek/deepseek-v4.1-flash": 0.929,
-   "google/gemma-4-31b-it": 0.667,
-   "qwen/qwen3.6-35b-a3b": 0.548,
-   "z-ai/glm-5.3-flash": 0.798
+  "pass_rate_v2": {
+   "deepseek/deepseek-v4.1-flash": {
+    "rate": 0.929,
+    "task_boot95": [
+     0.833,
+     1.0
+    ]
+   },
+   "google/gemma-4-31b-it": {
+    "rate": 0.667,
+    "task_boot95": [
+     0.512,
+     0.821
+    ]
+   },
+   "qwen/qwen3.6-35b-a3b": {
+    "rate": 0.548,
+    "task_boot95": [
+     0.393,
+     0.714
+    ]
+   },
+   "z-ai/glm-5.3-flash": {
+    "rate": 0.798,
+    "task_boot95": [
+     0.667,
+     0.917
+    ]
+   }
+  },
+  "pass_rate_v3": {
+   "deepseek/deepseek-v4.1-flash": {
+    "rate": 0.929,
+    "task_boot95": [
+     0.833,
+     1.0
+    ]
+   },
+   "google/gemma-4-31b-it": {
+    "rate": 0.667,
+    "task_boot95": [
+     0.512,
+     0.821
+    ]
+   },
+   "qwen/qwen3.6-35b-a3b": {
+    "rate": 0.595,
+    "task_boot95": [
+     0.44,
+     0.75
+    ]
+   },
+   "z-ai/glm-5.3-flash": {
+    "rate": 0.786,
+    "task_boot95": [
+     0.655,
+     0.905
+    ]
+   }
+  },
+  "implied_overall_error_rate": {
+   "checks": {
+    "errors": 60,
+    "n": 329,
+    "rate": 0.182,
+    "task_boot95": [
+     0.079,
+     0.303
+    ]
+   },
+   "GPT-6 Luna judge": {
+    "errors": 29,
+    "n": 312,
+    "rate": 0.093,
+    "task_boot95": [
+     0.039,
+     0.16
+    ]
+   },
+   "Mistral Small judge": {
+    "errors": 36,
+    "n": 328,
+    "rate": 0.11,
+    "task_boot95": [
+     0.042,
+     0.187
+    ]
+   }
+  },
+  "v3_changed_verdicts": {
+   "n": 5,
+   "labeled": 2
   }
  },
  "held_out": {
   "labeled": 63,
-  "checks_repaired": {
+  "labels_by_source": {
+   "hand": 8,
+   "rule": 55
+  },
+  "checks_v2": {
    "right": 56,
    "n": 63,
    "false_pass": 4,
-   "false_fail": 3
+   "false_fail": 3,
+   "accuracy": 0.889,
+   "wilson95": [
+    0.788,
+    0.945
+   ],
+   "task_boot95": [
+    0.804,
+    0.954
+   ],
+   "hand_labels": {
+    "right": 6,
+    "n": 8,
+    "false_pass": 1,
+    "false_fail": 1,
+    "accuracy": 0.75,
+    "wilson95": [
+     0.409,
+     0.929
+    ],
+    "task_boot95": [
+     0.333,
+     1.0
+    ]
+   },
+   "rule_labels": {
+    "right": 50,
+    "n": 55,
+    "false_pass": 3,
+    "false_fail": 2,
+    "accuracy": 0.909,
+    "wilson95": [
+     0.804,
+     0.961
+    ],
+    "task_boot95": [
+     0.818,
+     0.976
+    ]
+   }
+  },
+  "checks_v3_in_sample": {
+   "right": 57,
+   "n": 63,
+   "false_pass": 3,
+   "false_fail": 3,
+   "accuracy": 0.905,
+   "wilson95": [
+    0.807,
+    0.956
+   ],
+   "task_boot95": [
+    0.82,
+    0.968
+   ],
+   "hand_labels": {
+    "right": 6,
+    "n": 8,
+    "false_pass": 1,
+    "false_fail": 1,
+    "accuracy": 0.75,
+    "wilson95": [
+     0.409,
+     0.929
+    ],
+    "task_boot95": [
+     0.333,
+     1.0
+    ]
+   },
+   "rule_labels": {
+    "right": 51,
+    "n": 55,
+    "false_pass": 2,
+    "false_fail": 2,
+    "accuracy": 0.927,
+    "wilson95": [
+     0.827,
+     0.971
+    ],
+    "task_boot95": [
+     0.842,
+     0.983
+    ]
+   }
   },
   "GPT-6 Luna judge": {
    "right": 28,
    "n": 57,
    "false_pass": 4,
-   "false_fail": 25
+   "false_fail": 25,
+   "accuracy": 0.491,
+   "wilson95": [
+    0.366,
+    0.617
+   ],
+   "task_boot95": [
+    0.263,
+    0.75
+   ],
+   "hand_labels": {
+    "right": 7,
+    "n": 8,
+    "false_pass": 1,
+    "false_fail": 0,
+    "accuracy": 0.875,
+    "wilson95": [
+     0.529,
+     0.978
+    ],
+    "task_boot95": [
+     0.4,
+     1.0
+    ]
+   },
+   "rule_labels": {
+    "right": 21,
+    "n": 49,
+    "false_pass": 3,
+    "false_fail": 25,
+    "accuracy": 0.429,
+    "wilson95": [
+     0.3,
+     0.567
+    ],
+    "task_boot95": [
+     0.206,
+     0.711
+    ]
+   },
+   "verdicts": {
+    "total": 336,
+    "unparsed": 15,
+    "recovered_from_cut_off_reply": 6,
+    "recovered_fail": 5,
+    "recovered_pass": 1,
+    "unparsed_among_labeled": 6
+   },
+   "with_recovered_verdicts": {
+    "right": 28,
+    "n": 57,
+    "false_pass": 4,
+    "false_fail": 25,
+    "accuracy": 0.491,
+    "wilson95": [
+     0.366,
+     0.617
+    ],
+    "task_boot95": [
+     0.263,
+     0.75
+    ]
+   },
+   "sensitivity_unrecoverable_counted_wrong": {
+    "right": 28,
+    "n": 63,
+    "false_pass": 4,
+    "false_fail": 31,
+    "accuracy": 0.444,
+    "wilson95": [
+     0.328,
+     0.567
+    ],
+    "task_boot95": [
+     0.222,
+     0.717
+    ]
+   }
   },
   "Mistral Small judge": {
    "right": 19,
    "n": 63,
    "false_pass": 14,
-   "false_fail": 30
+   "false_fail": 30,
+   "accuracy": 0.302,
+   "wilson95": [
+    0.202,
+    0.424
+   ],
+   "task_boot95": [
+    0.121,
+    0.5
+   ],
+   "hand_labels": {
+    "right": 2,
+    "n": 8,
+    "false_pass": 2,
+    "false_fail": 4,
+    "accuracy": 0.25,
+    "wilson95": [
+     0.071,
+     0.591
+    ],
+    "task_boot95": [
+     0.0,
+     0.667
+    ]
+   },
+   "rule_labels": {
+    "right": 17,
+    "n": 55,
+    "false_pass": 12,
+    "false_fail": 26,
+    "accuracy": 0.309,
+    "wilson95": [
+     0.203,
+     0.44
+    ],
+    "task_boot95": [
+     0.089,
+     0.53
+    ]
+   },
+   "verdicts": {
+    "total": 336,
+    "unparsed": 0,
+    "recovered_from_cut_off_reply": 0,
+    "recovered_fail": 0,
+    "recovered_pass": 0,
+    "unparsed_among_labeled": 0
+   },
+   "with_recovered_verdicts": {
+    "right": 19,
+    "n": 63,
+    "false_pass": 14,
+    "false_fail": 30,
+    "accuracy": 0.302,
+    "wilson95": [
+     0.202,
+     0.424
+    ],
+    "task_boot95": [
+     0.121,
+     0.5
+    ]
+   },
+   "sensitivity_unrecoverable_counted_wrong": {
+    "right": 19,
+    "n": 63,
+    "false_pass": 14,
+    "false_fail": 30,
+    "accuracy": 0.302,
+    "wilson95": [
+     0.202,
+     0.424
+    ],
+    "task_boot95": [
+     0.121,
+     0.5
+    ]
+   }
   },
-  "pass_rate_repaired": {
-   "deepseek/deepseek-v4.1-flash": 0.917,
-   "google/gemma-4-31b-it": 0.655,
-   "qwen/qwen3.6-35b-a3b": 0.619,
-   "z-ai/glm-5.3-flash": 0.857
+  "pass_rate_v2": {
+   "deepseek/deepseek-v4.1-flash": {
+    "rate": 0.917,
+    "task_boot95": [
+     0.821,
+     0.988
+    ]
+   },
+   "google/gemma-4-31b-it": {
+    "rate": 0.655,
+    "task_boot95": [
+     0.488,
+     0.821
+    ]
+   },
+   "qwen/qwen3.6-35b-a3b": {
+    "rate": 0.619,
+    "task_boot95": [
+     0.464,
+     0.774
+    ]
+   },
+   "z-ai/glm-5.3-flash": {
+    "rate": 0.857,
+    "task_boot95": [
+     0.738,
+     0.964
+    ]
+   }
+  },
+  "pass_rate_v3": {
+   "deepseek/deepseek-v4.1-flash": {
+    "rate": 0.917,
+    "task_boot95": [
+     0.821,
+     0.988
+    ]
+   },
+   "google/gemma-4-31b-it": {
+    "rate": 0.655,
+    "task_boot95": [
+     0.488,
+     0.821
+    ]
+   },
+   "qwen/qwen3.6-35b-a3b": {
+    "rate": 0.631,
+    "task_boot95": [
+     0.488,
+     0.786
+    ]
+   },
+   "z-ai/glm-5.3-flash": {
+    "rate": 0.833,
+    "task_boot95": [
+     0.714,
+     0.94
+    ]
+   }
+  },
+  "implied_overall_error_rate": {
+   "checks": {
+    "errors": 7,
+    "n": 336,
+    "rate": 0.021,
+    "task_boot95": [
+     0.009,
+     0.033
+    ]
+   },
+   "GPT-6 Luna judge": {
+    "errors": 29,
+    "n": 321,
+    "rate": 0.09,
+    "task_boot95": [
+     0.037,
+     0.157
+    ]
+   },
+   "Mistral Small judge": {
+    "errors": 44,
+    "n": 336,
+    "rate": 0.131,
+    "task_boot95": [
+     0.071,
+     0.193
+    ]
+   }
+  },
+  "v3_changed_verdicts": {
+   "n": 5,
+   "labeled": 1
   }
  },
  "rule_label_spotcheck": {
   "agree": 20,
-  "n": 20
+  "n": 20,
+  "error_rate_upper95": 0.139
+ },
+ "regraded_v2_rubrics": {
+  "development": null,
+  "held_out": null
+ },
+ "method": {
+  "bootstrap": "2000 task-clustered resamples, seed 0, percentile interval",
+  "wilson": "95% Wilson score interval"
  }
 }
