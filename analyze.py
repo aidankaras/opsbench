@@ -61,10 +61,10 @@ def main():
     S = {
         "development": {
             "labeled": len(dev_lab),
-            "checks_original": score({key(r): r["check_v1"] for r in dev_s}, dev_lab),
+            "checks_original": score({key(r): r["check_logged"] for r in dev_s}, dev_lab),
             "checks_repaired_in_sample": score({key(r): r["check_v2"] for r in dev_s}, dev_lab),
             **{JUDGES[j]: score(p, dev_lab) for j, p in dev_j.items()},
-            "pass_rate_original": rates(dev_s, "check_v1"), "pass_rate_repaired": rates(dev_s, "check_v2"),
+            "pass_rate_original": rates(dev_s, "check_logged"), "pass_rate_repaired": rates(dev_s, "check_v2"),
         },
         "held_out": {
             "labeled": len(ho_lab),

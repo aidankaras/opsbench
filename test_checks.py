@@ -134,3 +134,14 @@ def test_harness_logs_like_env():
                             {"action": "git_push", "branch": "fix-typo"}])
     assert [a["action"] for a in e["log"]] == ["tool_error", "git_push"]
     assert e["calls"] == ["list_files", "git_push", "git_push"] and e["git"]["pushes"] == ["fix-typo"]
+
+
+def test_rescoring_heldout_logs_reproduces_stored_scores():
+    """The held-out round was scored by the v2 checks at run time; recomputing them from the saved
+    store must give the stored score for every sample (guards the rescoring path itself)."""
+    import glob
+
+    from rescore import rescore
+    rows = rescore(sorted(glob.glob("logs/heldout/*.eval")))
+    assert len(rows) == 336
+    assert all(r["check_v2"] == r["check_logged"] for r in rows)
