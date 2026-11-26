@@ -86,14 +86,14 @@ Unparsed verdicts: with max_tokens 300, GPT-6 Luna sometimes used up the budget 
 DeepSeek .917 (.82-.99), GLM .857 (.74-.96), Gemma .655 (.49-.82), Qwen .619 (.46-.77). The intervals overlap heavily for Gemma and Qwen, and for DeepSeek and GLM. In development the original checks understated every model by 10 to 18 points (DeepSeek .750 to .929, GLM .643 to .798, Gemma .512 to .667, Qwen .452 to .548), and the ranking did not change. With v3 checks the held-out rates are DeepSeek .917, GLM .833, Gemma .655, Qwen .631.
 
 ## Re-graded judges (v2 rubrics)
-*Pending: to be filled in after the paid re-grade (`make regrade`: 1,344 calls, about $0.07 at typical output length, at most about $0.19).* The judge models, prompt template, temperature 0 and max_tokens 300 are the same as in the original runs; only the rubric changes. `make report` writes the results to `regraded_v2_rubrics` in `summary.json` and adds two bars to the figure.
+Re-graded in November 2026 with `make regrade` (1,344 calls, about $0.08 spent). The judge models, prompt template, temperature 0 and max_tokens 300 are the same as in the original runs; only the rubric changes. Results are in `regraded_v2_rubrics` in `summary.json`.
 
 | Held-out, 63 labeled disagreements | v1 rubrics | v2 rubrics | Hand labels (8), v2 | Rule labels (55), v2 |
 |---|---|---|---|---|
-| GPT-6 Luna judge | 28/57 (26-75%) | *pending* | *pending* | *pending* |
-| Mistral Small judge | 19/63 (12-50%) | *pending* | *pending* | *pending* |
+| GPT-6 Luna judge | 28/57 (26-75%) | 57/62 (85-98%) | 8/8 | 49/54 |
+| Mistral Small judge | 19/63 (12-50%) | 45/63 (51-87%) | 6/8 | 39/55 |
 
-To report after the run: v2-rubric accuracy per judge with intervals, split by label source; false passes vs false fails; the development numbers; the count of unparsed verdicts. The v2 rubrics were written after seeing the labels from both rounds, so v2-rubric accuracy is in-sample, in the same way the v2 checks are in-sample on development.
+Intervals are 95% task-clustered bootstrap. Errors with v2 rubrics: Luna 4 false passes and 1 false fail; Mistral 11 false passes and 7 false fails. Unparsed verdicts: Luna 10 of 336 held-out calls (1 among the 63 labeled cases; counted as wrong, Luna is 57/63, 83-97%), Mistral 0. On development, with v2 rubrics, Luna is right on 97 of 98 (97-100%) and Mistral on 87 of 98 (72-98%), against 58/87 and 62/98 with v1. Reading: most of the original judge errors came from rubrics that no longer matched the labeling standard, not from the judges. With the standard written down, the stronger judge matches the repaired checks; the smaller one does not. The v2 rubrics were written after seeing the labels from both rounds, so these accuracies are in-sample, in the same way the v2 checks are in-sample on development; a fresh round would be needed to compare judges and checks out of sample.
 
 ## Limits
 - One human labeler, who also repaired the checks. Rule labels are spot-checked (20/20; error rate up to 13.9% at 95%), not fully reviewed. No second labeler has measured agreement.
