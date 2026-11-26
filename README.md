@@ -11,19 +11,21 @@ Intervals are 95% task-clustered bootstrap intervals (labels cluster by task, so
 
 - The original programmatic checks were right on 38 of 98 labeled development disagreements (19-62%). Most errors were false fails: the checks could not see the agent's final reply or read-only tool calls.
 - After repairing them with the development labels, the checks were right on 56 of 63 disagreements in a fresh held-out run (80-95%). 55 of those 63 labels come from written rules that encode the same standard the checks were repaired to, so this mostly shows the repairs were applied consistently. On the 8 held-out cases a human labeled by hand, the checks were right on 6 and the GPT-6 Luna judge on 7.
-- On the held-out run, the GPT-6 Luna judge was right on 28 of 57 (26-75%) and the Mistral Small judge on 19 of 63 (12-50%). The judges graded against the original (v1) rubrics, which the labeling standard later departed from; for example, the v1 rubric for inject-01 requires flagging the suspicious email, and the labels pass a clean summary that ignores it. So this compares judges given an outdated spec with checks given the updated one. It is not yet a fair judges-vs-checks comparison; see "Re-graded judges (v2 rubrics)".
+- On the held-out run, the GPT-6 Luna judge was right on 28 of 57 (26-75%) and the Mistral Small judge on 19 of 63 (12-50%). The judges graded against the original (v1) rubrics, which the labeling standard later departed from; for example, the v1 rubric for inject-01 requires flagging the suspicious email, and the labels pass a clean summary that ignores it. So this compares judges given an outdated spec with checks given the updated one. Re-graded with rubrics that state the labeling standard, Luna is right on 57 of 62 (85-98%), level with the repaired checks; most of the judges' original errors came from the outdated rubrics. See "Re-graded judges (v2 rubrics)".
 - Taking runs where all three graders agree as correct, the overall held-out error rate is 2.1% for the checks (0.9-3.3%), 9.0% for Luna (3.7-15.7%) and 13.1% for Mistral (7.1-19.3%).
 
 Accuracies above are on disagreement cases only. Full write-up, method and limits: [REPORT.md](REPORT.md).
 
 ## Re-graded judges (v2 rubrics)
-*Pending. To be filled in after the paid re-grade.* The v2 rubrics (`opsbench/rubrics_v2.py`) state the labeling standard; models, prompt, temperature and max_tokens are unchanged. `make regrade` writes `results/judged-*-rubric-v2.jsonl`, and `make report` then adds the numbers to `results/summary.json` (`regraded_v2_rubrics`) and two bars to the figure.
+The v2 rubrics (`opsbench/rubrics_v2.py`) state the labeling standard; models, prompt, temperature and max_tokens are unchanged. The re-grade ran in November 2026 (1,344 calls, about $0.08). The v2 rubrics were written after seeing the labels, so these numbers are in-sample, like the v2 checks on development.
 
 | Held-out, 63 labeled disagreements | v1 rubrics | v2 rubrics |
 |---|---|---|
-| GPT-6 Luna judge | 28/57 (26-75%) | *pending* |
-| Mistral Small judge | 19/63 (12-50%) | *pending* |
+| GPT-6 Luna judge | 28/57 (26-75%) | 57/62 (85-98%) |
+| Mistral Small judge | 19/63 (12-50%) | 45/63 (51-87%) |
 | Repaired checks (v2), for reference | 56/63 (80-95%) | n/a |
+
+With the same written standard, the stronger judge (Luna) matches the repaired checks; the smaller judge (Mistral Small) still makes 11 false passes and 7 false fails. One Luna verdict among the 63 labeled cases could not be parsed; counting it as wrong gives 57/63 (83-97%). On the 8 hand-labeled cases: Luna 8/8, Mistral 6/8, checks 6/8.
 
 ## What's here
 - `opsbench/` 28 tasks across 7 trap types (prompt injection, destructive action, tool error, scope creep, ambiguity, calendar conflict, policy), each with a simulated workspace, a programmatic check and a v1 judge rubric. `checks_v2.py` is a frozen copy of the checks that scored the held-out round; `tasks.py` holds the current (v3) checks; `rubrics_v2.py` holds the v2 judge rubrics.
